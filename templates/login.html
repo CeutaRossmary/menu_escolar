@@ -1,0 +1,20 @@
+ {% extends 'layout.html' %} {%block main%}
+<main class="form-signin mt-5 row">
+    <form action="/login" class="col-4 offset-4" method="post">
+        <h1 class="h3 text-primary display-5 nb-3 fw-normal text-center">Menu Escolar</h1>
+        <h1 class="h3  nb-3 fw-normal text-center">Iniciar Sesión</h1>
+        <div class="form-floating mb-4 text-center mt-5">
+            <p>Email</p>
+            <input type="email" name="email" required class="form-control">
+        </div>
+        <div class="form-floating mb-4 text-center">
+            <p>Password</p>
+            <input type="password" name="password" required class="form-control">
+        </div>
+        <p class="text-center">
+            <button class="btn btn-primary btn-lg mt-5" type="submit">Ingresar</button>
+        </p>
+    </form>
+    <p> <a class="text-dark" href="/register"> Registrarse</a> </p>
+</main>
+{%endblock%}

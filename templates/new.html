@@ -1,0 +1,66 @@
+{% extends 'layout.html' %} {% block styles %}
+<style>
+    .revision {
+        color: #F0EA30;
+        font-weight: bold;
+    }
+    
+    .aprobado {
+        color: darkgreen;
+        font-weight: bold;
+    }
+    
+    .foto {
+        display: block;
+        width: 5rem;
+    }
+    
+    th,
+    td {
+        text-align: center;
+    }
+</style>
+{% endblock %} {% block main %} {% if user %}
+<div>
+
+    <nav class="navbar navbar-dark bg-primary">
+        <p> Bienvenido | {{user.name}}</p>
+        <a href="/logout" class="m3- btn btn-secondary">Logout</a>
+    </nav>
+
+</div>
+<br> {% endif %}
+<main class="form-signin mt-5 row">
+    <h1 class="text-center mt-4 mb-4" id="titulo">Nuevo Pedido</h1>
+    <form action="/register" method="post" class="col-4 offset-4">
+
+        <div class="row">
+
+            <div class="form mb-4 text-center col-6">
+                <input type="number" name="vegetarian" class="form-control" placeholder="M.Vegetarianos" required>
+            </div>
+            <div class="form mb-4 text-center col-6">
+                <input type="number" name="celiac" class="form-control" placeholder="M.Calórico" required>
+            </div>
+            <div class="form mb-4 text-center col-6">
+                <input type="number" name="" class="form-control" placeholder="M.Celiacos" required>
+            </div>
+            <div class="form mb-4 text-center col-6">
+                <input type="number" name="" class="form-control" placeholder="M.Autóctono" required>
+            </div>
+            <div class="form mb-4 text-center col-6">
+                <input type="number" name="" class="form-control" placeholder="M.Estandar" required>
+            </div>
+            <div class="form mb-4 text-center col-6">
+                <input type="date" name="date" class="form-control" required>
+            </div>
+            <a href="/new" class="m3- btn btn-primary">Agregar</a>
+            </p>
+    </form>
+
+</main>
+<br> {% endblock %} {% block script %}
+<script>
+    ;
+</script>
+{% endblock %}
