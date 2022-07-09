@@ -1,7 +1,8 @@
 const express = require('express')
 const fs = require('fs').promises
 const {
-    get_Schools,
+    create_Orders,
+    get_orders,
     edit_skater,
     get_user,
     //   aprove_skater,
@@ -20,9 +21,9 @@ function protected_route(req, res, next) {
 
 // RUTAS
 router.get('/', async(req, res) => {
-    // let skaters= await get_skaters()
-    // skaters = skaters.filter(sk => sk.email != 'admin@gmail.com')
-    res.render('index.html', { user: req.session.user })
+    let user = await get_orders()
+        // skaters = skaters.filter(sk => sk.email != 'admin@gmail.com')
+    res.render('index.html', { user })
 })
 
 router.get('/edit', protected_route, async(req, res) => {
@@ -36,37 +37,54 @@ router.get('/admin', protected_route, async(req, res) => {
     res.render('admin.html', { user: req.session.user.email })
 })
 router.get('/new', protected_route, async(req, res) => {
-    let user = await get_Schools();
-    //  skaters = skaters.filter(sk => sk.email != 'admin@gmail.com')
+    let user = await get_orders();
+    // console.log(user)
+    // let school = school.filter(sk => sk.email != 'admin@gmail.com')
     res.render("new.html", { user });
 });
-
-router.post('/edit', async(req, res) => {
+router.post("/new", async(req, res) => {
     // 1. Recuperar los campos del formulario
-    const email = req.body.email
-    const name = req.body.name
-    const password = req.body.password
 
+    console.log(req.session.user.id);
+
+    const date = req.body.date;
+    const school_id = 1;
+    const vegetarian = req.body.vegetarian;
+    const celiac = req.body.celiac;
+    const standard = req.body.standard;
+    const caloric = req.body.caloric;
+    const ethnic = req.body.ethnic;
 
     // 4. Finalmente podemos guardar el nuevo usuario en base de datos
-    await edit_skater(name, email, password)
+    await create_Orders(
+
+        date,
+        school_id,
+        vegetarian,
+        celiac,
+        standard,
+        caloric,
+        ethnic
+    );
 
     // 5. y en la sesión
-    req.session.user = {
-            nombre,
-            email,
-            password
-        }
-        //console.log('session', req.session);
+    // req.session.user = {
+    //     id,
+    // };
+    console.log('session', req.session);
 
-    res.redirect('/')
-})
+    res.redirect("/");
+});
+
+
+
+
 
 router.get('/aprove/:email/:estado', async(req, res) => {
-    const email = req.params.email
-    const estado = req.params.estado
-    await aprove_skater(email, estado)
-    res.send(`cambiando ${email} - ${estado}`)
+    // const email = req.params.email
+    // const estado = req.params.estado
+    // await aprove_skater(email, estado)
+    // res.send(`cambiando ${email} - ${estado}`)
 })
 
 module.exports = router

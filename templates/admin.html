@@ -1,84 +1,76 @@
-{% extends 'layout.html' %}
-{% block styles %}
+{% extends 'layout.html' %} {% block styles %}
 <style>
-.revision{
-    color: #F0EA30;
-    font-weight: bold;
-}
-.aprobado{
-    color: darkgreen;
-    font-weight: bold;
-}
-.foto{
-    display: block;
-    width: 5rem;
-}
-th, td{
-    text-align: center;
-}
+    .revision {
+        color: #F0EA30;
+        font-weight: bold;
+    }
+    
+    .aprobado {
+        color: darkgreen;
+        font-weight: bold;
+    }
+    
+    .foto {
+        display: block;
+        width: 5rem;
+    }
+    
+    th,
+    td {
+        text-align: center;
+    }
 </style>
-{% endblock %}
+{% endblock %} {% block main %}
 
-{% block main %}
+<h1 class="text-center mt-4 mb-4" id="titulo">Skatepark</h1>
+<h3 class="text-center mt-4 mb-4" id="subtitulo">Lista de Participantes</h3>
 
-    <h1 class="text-center mt-4 mb-4"  id="titulo">Skatepark</h1>
-    <h3 class="text-center mt-4 mb-4" id="subtitulo">Lista de Participantes</h3>
+{% if user %}
+<div>
+    <a href="/logout" class="m3- btn btn-secondary">Cerrar Sesión</a>
+    <a href="/" class="m3- btn btn-secondary">Pantalla Principal</a><br>
+</div>
 
-    {% if user %}
-        <div>
-            <a href="/logout" class="m3- btn btn-secondary">Cerrar Sesión</a>
-            <a href="/" class="m3- btn btn-secondary">Pantalla Principal</a><br>
-        </div>
-
-    {% endif %}
+{% endif %}
 <br>
-    <table class=" table table-dark mb-5">
-        <thead>
+<table class=" table table-dark mb-5">
+    <thead>
+        <tr>
+            <th scope="col">FECHA</th>
+            <th scope="col">M1</th>
+            <th scope="col">M2</th>
+            <th scope="col">M3</th>
+            <th scope="col">M4</th>
+            <th scope="col">M5</th>
+            <th scope="col">ACCIÓN</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for skater in skaters %}
+        <tr>
+            {% for user in users %}
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Foto</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Años de expreciencia</th>
-                <th scope="col">Especialidad</th>
-                <th scope="col">Estado</th>
+                <td scope="row"> {{ user.id }} </td>
+                <td>{{ user.fecha }}</td>
+                <td> {{user.vegetarian}} </td>
+                <td>{{ user.celiac }} </td>
+                <td>{{ user.standard}} </td>
+                <td>{{ user.caloric }} </td>
+                <td>{{ user.ethnic }} </td>
+                <td>
             </tr>
-        </thead>
-        <tbody>
-            {% for skater in skaters %}
-                <tr>
-                    <td scope="row"> {{ skater.id }} </td>
-                    <td>
-                        <img class="foto" src="{{ skater.foto }}" alt="">              
-                    </td>
-                    <td>{{ skater.nombre }}</td>
-                    <td> {{ skater.agnos_experiencia }} </td>
-                    <td>{{ skater.especialidad }} </td>
-                    <td>
-                        <input type="checkbox" id="{{ skater.email }}" class="aproved" {% if skater.estado %}checked="checked"{% endif %}>
-                    </td>
-                </tr>
             {% endfor %}
-        </tbody>
-    </table><br>
-{% endblock %}
-
-{% block scripts %}
+    </tbody>
+</table><br> {% endblock %} {% block scripts %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
-$('.aproved').on('click', function(){
-    const email=$(this).attr('id');
-    const estado=$(this).is(':checked')
-    const estado_string= estado ? 'true' : 'false'
-    $.get(`/aprove/${email}/${estado_string}`, function(respuesta){
-        console.log(respuesta);
+    $('.aproved').on('click', function() {
+        const email = $(this).attr('id');
+        const estado = $(this).is(':checked')
+        const estado_string = estado ? 'true' : 'false'
+        $.get(`/aprove/${email}/${estado_string}`, function(respuesta) {
+            console.log(respuesta);
+        })
     })
-})
-
-
-
-
-
-
-
 </script>
 {% endblock %}

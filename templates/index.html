@@ -21,17 +21,38 @@
     }
 </style>
 {% endblock %} {% block main %}
-
+<nav class="navbar navbar-dark bg-primary">
+    <p> Bienvenido | {{user.name}}</p>
+    <a href="/logout" class="m3- btn btn-secondary ">Logout</a>
+</nav>
 <h1 class="text-center mt-4 mb-4" id="titulo">Menu Escolar</h1>
 <h3 class="text-center mt-4 mb-4" id="subtitulo">Pedidos</h3>
+<a href="/new" class="m3- btn btn-primary justify-content-md-end">Nuevo Pedido</a><br>
+<div class="col-4 ">
+    <div class="row">
+        <div class="form-floating mb-4 text-center col-6">
+            <div class=" border border-success ">
+                <p>M1: Menú Vegetariano</p>
+                <p>M1: Menú Celiaco</p>
+                <p>M1: Menú Estándar</p>
+            </div>
+        </div>
+        <div class="form-floating mb-4 text-center col-6">
+            <div class=" border border-success ">
+                <p>M1: Menú Vegetariano</p>
+                <p>M1: Menú Celiaco</p>
+                <p>M1: Menú Estándar</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% if user %}
 <div>
     {% if user.email == 'admin@gmail.com' %}
     <a href="/admin" class="m-3 btn btn-secondary">Admin</a> {% endif%}
     <a href="/logout" class="m3- btn btn-secondary">Cerrar Sesión</a>
-    <a href="/edit" class="m3- btn btn-primary">Editar Perfil</a>
-    <a href="/new" class="m3- btn btn-primary">Nuevo Pedido</a>
+
 </div>
 <br> {% endif %}
 
@@ -48,15 +69,15 @@
         </tr>
     </thead>
     <tbody>
-        {% for skater in skaters %}
+        {% for user in users %}
         <tr>
-            <td scope="row"> {{ skater.id }} </td>
-            <td>
-                <img class="foto" src="{{ skater.foto }}" alt="">
-            </td>
-            <td>{{ skater.nombre }}</td>
-            <td> {{ skater.agnos_experiencia }} </td>
-            <td>{{ skater.especialidad }} </td>
+            <td scope="row"> {{ user.id }} </td>
+            <td>{{ user.fecha }}</td>
+            <td> {{user.vegetarian}} </td>
+            <td>{{ user.celiac }} </td>
+            <td>{{ user.standard}} </td>
+            <td>{{ user.caloric }} </td>
+            <td>{{ user.ethnic }} </td>
             <td>
                 {% if skater.estado %}
                 <span class="aprobado">Aprobado</span> {% else %}
